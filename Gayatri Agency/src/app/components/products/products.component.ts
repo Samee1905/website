@@ -72,8 +72,9 @@ export class ProductsComponent implements OnInit {
     headers.append('Cache-Control', 'public, max-age=31557600, s-maxage=31557600');
     headers.append('Cookie', 'restApiCookie=test');
     let data = {
-      "num": "154",
-      "prods": "FFFFF"
+      "productName": "MIRCHI",
+      "stock": "100",
+      "price": "12.34"
     }
     this.http.post<any>('https://bhagwats.online/insert.php', data, { headers }).subscribe(data1 => {
       console.log(data1);

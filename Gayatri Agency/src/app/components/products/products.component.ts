@@ -1,6 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormControl } from '@angular/forms';
+import {
+  AngularGridInstance,
+  Column,
+  FieldType,
+  GridOdataService,
+  GridOption,
+  GridStateChange,
+  ExtensionName,
+  GridState
+} from 'angular-slickgrid';
 
 @Component({
   selector: 'app-products',
@@ -8,23 +19,41 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-
-  constructor(private http: HttpClient, private modalService: NgbModal) { }
   closeResult: string;
-  ngOnInit(): void {
+  newProductForm: FormGroup;
+  columnDef: Column[];
+  gridOptions: GridOption;
+  dataset: any[];
+  gridObj: any;
+  recordCount: number;
+  disableExportCopy: boolean = true;
+  angularGrid: AngularGridInstance;
+  constructor(private http: HttpClient, private modalService: NgbModal) { }
+
+  ngOnInit() {
+    this.newProductForm = new FormGroup({
+      'productName': new FormControl(null),
+      'stock': new FormControl(null),
+      'price': new FormControl(null)
+    });
+  }
+
+  onSubmit() {
+
+
 
   }
 
-  onFileChanged(event) {
-    // console.log("Event:", event.target.value);
-    // this.selectedFile = <File>event.target.files[0];
-    // const fd = new FormData();
-    // fd.append('image', this.selectedFile, this.selectedFile.name);
-    // this.http.post('http://bhagwats.online/', fd)
-    //   .subscribe(res => {
-    //     console.log(res);
-    //   });
-  }
+  // onFileChanged(event) {
+  //   console.log("Event:", event.target.value);
+  //   this.selectedFile = <File>event.target.files[0];
+  //   const fd = new FormData();
+  //   fd.append('image', this.selectedFile, this.selectedFile.name);
+  //   this.http.post('http://bhagwats.online/', fd)
+  //     .subscribe(res => {
+  //       console.log(res);
+  //     });
+  // }
 
   open(content, type, modalDimension) {
     if (modalDimension === 'sm' && type === 'modal_mini') {
@@ -58,6 +87,7 @@ export class ProductsComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+
   }
 
   addProduct() {
@@ -72,12 +102,15 @@ export class ProductsComponent implements OnInit {
     headers.append('Cache-Control', 'public, max-age=31557600, s-maxage=31557600');
     headers.append('Cookie', 'restApiCookie=test');
     let data = {
-      "productName": "MIRCHI",
-      "stock": "100",
-      "price": "12.34"
+      "productName": this.newProductForm.value.productName,
+      "stock": this.newProductForm.value.stock,
+      "price": this.newProductForm.value.price
     }
     this.http.post<any>('https://bhagwats.online/insert.php', data, { headers }).subscribe(data1 => {
       console.log(data1);
     }, error => console.error(error));
   }
+
+
+ 
 }

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NouisliderModule } from 'ng2-nouislider';
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 import { RouterModule } from '@angular/router';
@@ -17,6 +17,7 @@ import { NewOrdersComponent } from './new-orders/new-orders.component';
 import { OrdersComponent } from './orders/orders.component';
 import { CustomerComponent } from './customer/customer.component';
 import { ProductsComponent } from './products/products.component';
+import { DataTableComponent } from './data-table/data-table.component';
 
 @NgModule({
     imports: [
@@ -25,7 +26,8 @@ import { ProductsComponent } from './products/products.component';
         NgbModule,
         NouisliderModule,
         RouterModule,
-        JwBootstrapSwitchNg2Module
+        JwBootstrapSwitchNg2Module,
+        ReactiveFormsModule
       ],
     declarations: [
         ComponentsComponent,
@@ -38,7 +40,8 @@ import { ProductsComponent } from './products/products.component';
         NewOrdersComponent,
         OrdersComponent,
         CustomerComponent,
-        ProductsComponent
+        ProductsComponent,
+        DataTableComponent
     ],
     exports:[ ComponentsComponent ]
 })

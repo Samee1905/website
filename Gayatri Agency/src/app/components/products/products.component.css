@@ -1,5 +1,11 @@
 .form-control::placeholder {
-    color: #680606;
-    opacity: 1;
+    color: Black;
+    opacity: 2;
+    font-weight: 500;
     filter: alpha(opacity=100);
+}
+
+.headerString{
+    text-align: left;
+    color: black;
 }
